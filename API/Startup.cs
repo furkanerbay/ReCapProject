@@ -42,6 +42,12 @@ namespace API
 
             services.AddSingleton<IRentalService, RentalManager>();
             services.AddSingleton<IRentalDal, EfRentalDal>();
+
+            services.AddSingleton<IBrandDal, EfBrandDal>();
+            services.AddSingleton<IBrandService, BrandManager>();
+
+            services.AddSingleton<IColorService, ColorManager>();
+            services.AddSingleton<IColorDal, EfColorDal>();
            
         }
 
