@@ -22,5 +22,8 @@ namespace Business.Constants
         public static string ColorUpdated = "Renk guncellendi.";
         public static string ColorGetAll = "Tum renkler listelendi.";
         public static string ColorGetById = "Istenilen id'nin renk datalari listelendi.";
+
+        public static string AuthorizationDenied = "Yetkiniz yok";
+        public static string ProductNameAlreadyExists = "Ürün ismi zaten mevcut";
     }
 }
