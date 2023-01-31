@@ -56,6 +56,8 @@ namespace API
             //services.AddSingleton<IColorService, ColorManager>();
             //services.AddSingleton<IColorDal, EfColorDal>();
 
+            services.AddCors();
+
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) //Bu sistemde JwtBearer kullanýlacak yani JWT
@@ -88,6 +90,8 @@ namespace API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
