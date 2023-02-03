@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -23,6 +24,7 @@ namespace API.Controllers
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
+            Thread.Sleep(1000);
             var result = _carService.GetAll();
             if(result.Success)
             {
@@ -42,10 +44,32 @@ namespace API.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("getCarDetailsByBrand")]
+        public IActionResult GetByCarDetailsByBrand(int brandId)
+        {
+            var result = _carService.GetByCarDetailsByBrand(brandId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
         [HttpGet("getCarsByColorId")]
         public IActionResult GetCarsByColorId(int id)
         {
             var result = _carService.GetCarsByColorId(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getCarDetailsByColor")]
+        public IActionResult GetByCarDetailsByColor(int colorId)
+        {
+            var result = _carService.GetByCarDetailsByColor(colorId);
             if (result.Success)
             {
                 return Ok(result);
@@ -89,6 +113,7 @@ namespace API.Controllers
         [HttpGet("getbycardetails")]
         public IActionResult GetByCarDetails()
         {
+            Thread.Sleep(1000);
             var result = _carService.GetByCarDetails();
             if(result.Success)
             {
@@ -97,6 +122,16 @@ namespace API.Controllers
             return BadRequest(result);
         }
         
+        [HttpGet("getbycardetailsbycolorandbrand")]
+        public IActionResult GetByCarDetailsByColorAndBrand(int colorId,int brandId)
+        {
+            var result = _carService.GetByCarDetailsByColorAndBrand(colorId, brandId);
+            if(result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
 
     }
 }
