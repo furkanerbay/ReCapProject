@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace DataAccess.Concrete.EntityFramework
 {
@@ -15,17 +16,22 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (CarContext context = new CarContext())
             {
-                var result = from c in context.Cars
-                             join b in context.Brands
-                             on c.BrandId equals b.Id
-                             join co in context.Colors
-                             on c.ColorId equals co.Id
+                var result = from car in context.Cars
+                             join brand in context.Brands
+                             on car.BrandId equals brand.Id
+                             join color in context.Colors
+                             on car.ColorId equals color.Id
+
+
                              select new CarDetailsDto
                              {
-                                 CarName = c.Description,
-                                 ColorName = co.Name,
-                                 BrandName = b.Name,
-                                 DailyPrice = c.DailyPrice
+                                 CarName = car.Description,
+                                 ColorName = color.Name,
+                                 BrandName = brand.Name,
+                                 DailyPrice = car.DailyPrice,
+                                 ImagePath = (from img in context.CarImages
+                                              where img.CarId == car.Id
+                                              select img.ImagePath).FirstOrDefault()
                              };
 
                 return result.ToList();
@@ -82,25 +88,54 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (CarContext context = new CarContext())
             {
-                var result= from car in context.Cars
-                join color in context.Colors
-                on car.ColorId equals color.Id
-                join brand in context.Brands
-                on car.BrandId equals brand.Id
-                where car.ColorId == colorId && car.BrandId == brandId
+                var result = from car in context.Cars
+                             join color in context.Colors
+                             on car.ColorId equals color.Id
+                             join brand in context.Brands
+                             on car.BrandId equals brand.Id
+                             where car.ColorId == colorId && car.BrandId == brandId
 
-                select new CarDetailsDto
-                {
-                    CarName = car.Description,
-                    ColorName = color.Name,
-                    BrandName = brand.Name,
-                    DailyPrice = car.DailyPrice
-                };
+                             select new CarDetailsDto
+                             {
+                                 CarName = car.Description,
+                                 ColorName = color.Name,
+                                 BrandName = brand.Name,
+                                 DailyPrice = car.DailyPrice
+                             };
 
                 return result.ToList();
 
             };
 
         }
-    }
+
+
+        public CarDetailsDto GetByCarDetailsByCarId(int carId)
+        {
+            using (CarContext context = new CarContext())
+            {
+                var result = from car in context.Cars
+                             join color in context.Colors
+                             on car.ColorId equals color.Id
+                             join brand in context.Brands
+                             on car.BrandId equals brand.Id
+                             join images in context.CarImages
+                             on car.Id equals images.CarId
+                             where car.Id == carId
+
+                             select new CarDetailsDto
+                             {
+                                 CarName = car.Description,
+                                 ColorName = color.Name,
+                                 BrandName = brand.Name,
+                                 DailyPrice = car.DailyPrice,
+                                 ModelYear = car.ModelYear,
+                                 ImagePath = images.ImagePath
+                             };
+
+                return result.FirstOrDefault();
+            };
+        }
+     }
 }
+

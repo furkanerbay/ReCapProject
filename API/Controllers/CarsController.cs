@@ -121,7 +121,18 @@ namespace API.Controllers
             }
             return BadRequest(result);
         }
-        
+
+        [HttpGet("getbycardetailsbycarid")]
+        public IActionResult GetByCarDetailsByCarId(int carId)
+        {
+            var result = _carService.GetByCarDetailsByCarId(carId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
         [HttpGet("getbycardetailsbycolorandbrand")]
         public IActionResult GetByCarDetailsByColorAndBrand(int colorId,int brandId)
         {
@@ -132,6 +143,5 @@ namespace API.Controllers
             }
             return BadRequest(result);
         }
-
     }
 }
