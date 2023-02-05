@@ -97,8 +97,8 @@ namespace API
 
             app.UseRouting();
 
+            app.UseAuthentication();//Önce authentication çalışır sonra authorization
             app.UseAuthorization();
-            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

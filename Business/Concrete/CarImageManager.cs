@@ -25,7 +25,7 @@ namespace Business.Concrete
         public IResult Add(IFormFile file, CarImage carImage)
         {
             IResult result = BusinessRules.Run(CheckIfCarImageLimit(carImage.CarId));
-            if(result != null)
+            if (result != null)
             {
                 return result;
             }
@@ -56,10 +56,9 @@ namespace Business.Concrete
             //}
             //return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == carId), "Istenilen arabanin resimleri donduruldu");
 
-
             var result = _carImageDal.GetAll(c => c.CarId == carId);
 
-            if(result.Count > 0)
+            if (result.Count > 0)
             {
                 return new SuccessDataResult<List<CarImage>>(result);
             }
@@ -93,7 +92,7 @@ namespace Business.Concrete
         private IResult CheckIfCarImageLimit(int carId)
         {
             var result = _carImageDal.GetAll(c => c.CarId == carId).Count;
-            if(result > 5)
+            if (result > 5)
             {
                 return new ErrorResult("Bu araba için maksimum resim kapasitesine ulasilmistir.");
             }
@@ -103,7 +102,7 @@ namespace Business.Concrete
         private IResult CheckCarImage(int carId)
         {
             var result = _carImageDal.GetAll(c => c.CarId == carId).Count;
-            if(result>0)
+            if (result > 0)
             {
                 return new SuccessResult();
             }

@@ -143,5 +143,16 @@ namespace API.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpGet("getbycardetailsbycarid2")]
+        public IActionResult GetByCarDetailsByCarId2(int carId)
+        {
+            var result = _carService.GetByCarDetailsByCarId2(carId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }
