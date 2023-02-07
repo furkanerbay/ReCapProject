@@ -52,6 +52,7 @@ namespace DataAccess.Concrete.EntityFramework
 
                              select new CarDetailsDto
                              {
+                                 Id = car.Id,
                                  CarName = car.Description,
                                  ColorName = color.Name,
                                  BrandName = brand.Name,
@@ -78,6 +79,7 @@ namespace DataAccess.Concrete.EntityFramework
 
                              select new CarDetailsDto
                              {
+                                 Id = car.Id,
                                  CarName = car.Description,
                                  ColorName = color.Name,
                                  BrandName = brand.Name,
@@ -104,6 +106,7 @@ namespace DataAccess.Concrete.EntityFramework
 
                              select new CarDetailsDto
                              {
+                                 Id=car.Id,
                                  CarName = car.Description,
                                  ColorName = color.Name,
                                  BrandName = brand.Name,
@@ -146,34 +149,6 @@ namespace DataAccess.Concrete.EntityFramework
 
                 return result.FirstOrDefault();
             };
-        }
-
-        public List<CarDetailsDto> GetByCarDetailsByCarId2(int carId)
-        {
-            using (CarContext context = new CarContext())
-            {
-                var result = from car in context.Cars
-                             join color in context.Colors
-                             on car.ColorId equals color.Id
-                             join brand in context.Brands
-                             on car.BrandId equals brand.Id
-                             where car.Id == carId
-
-                             select new CarDetailsDto
-                             {
-                                 Id = car.Id,
-                                 CarName = car.Description,
-                                 ColorName = color.Name,
-                                 BrandName = brand.Name,
-                                 ModelYear = car.ModelYear,
-                                 DailyPrice = car.DailyPrice,
-                                 ImagePath = (from img in context.CarImages
-                                              where img.CarId == car.Id
-                                              select img.ImagePath).FirstOrDefault()
-                             };
-
-                return result.ToList();
-            }
         }
 
 

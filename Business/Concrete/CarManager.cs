@@ -86,10 +86,5 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<CarDetailsDto>(_carDal.GetByCarDetailsByCarId(carId),"Istenilen araba getirildi.");
         }
-
-        public IDataResult<List<CarDetailsDto>> GetByCarDetailsByCarId2(int carId)
-        {
-            return new SuccessDataResult<List<CarDetailsDto>>(_carDal.GetByCarDetailsByCarId2(carId),"Istenilen araba getirildi.");
-        }
     }
 }

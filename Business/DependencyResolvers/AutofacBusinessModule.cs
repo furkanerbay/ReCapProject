@@ -42,6 +42,9 @@ namespace Business.DependencyResolvers
             builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
             builder.RegisterType<UserManager>().As<IUserService>().SingleInstance();
 
+            builder.RegisterType<EfPaymentDal>().As<IPaymentDal>().SingleInstance();
+            builder.RegisterType<PaymentManager>().As<IPaymentService>().SingleInstance();
+
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
             builder.RegisterType<AuthManager>().As<IAuthService>().SingleInstance();
